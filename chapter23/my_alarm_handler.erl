@@ -3,7 +3,7 @@
 
 %% gen event callbacks
 -export([init/1, code_change/3, handle_event/2, handle_call/2,
-         handle_inf/2, terminate/2]).
+         handle_info/2, terminate/2]).
 
 
 %% init(Args) must return {ok State}
@@ -21,3 +21,13 @@ handle_event({clear_alarm, tooHot}, N) ->
 handle_event(Event, N) ->
     io:format("*** unmatched event: ~p~n", [Event]),
     {ok, N}.
+
+handle_call(_Request, N) -> 
+    Reply = N, 
+    {ok, Reply, N}.
+
+handle_info(_Info, N) -> {ok, N}.
+
+terminate(_Reason, _N) -> ok.
+code_change(_OldVsn, State, _Extra) ->
+    {ok, State}.
